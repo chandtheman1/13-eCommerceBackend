@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Tag, Product, ProductTag } = require('../../models');
+const { update } = require('../../models/Product');
 
 // The `/api/tags` endpoint
 
@@ -74,54 +75,15 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
-  // Tag.update(req.body, {
-  //   where: {
-  //     id: req.params.id,
-  //   },
-  // })
-  //   .then((tag) => {
-  //     return ProductTag.findAll({ where: { tag_id: req.params.id }});
-  //   })
-  //   .then((tags) => {
-
-  //     const tagIds = tags.map(({ product_id }) => product_id);
-
-  //     const newTagIds = req.body.productID
-  //       .filter((product_id) => !tagIds.includes(product_id))
-  //       .map((product_id) => {
-  //         return {
-  //           tag_id: req.params.id,
-  //           product_id,
-  //         }
-  //       })
-
-  //       const tagsToRemove = tags
-  //         .filter(({ product_id }) => !req.body.productID.includes(product_id))
-  //         .map((id) => id);
-      
-  //         return Promise.all([
-  //           ProductTag.destroy({ where: { id: tagsToRemove } }),
-  //           ProductTag.bulkCreate(newTagIds),
-  //         ]);
-  //   })
-  //   .then((updatedTags) => res.json(updatedTags))
-  //   .catch((err) => {
-  //     res.status(400).json(err);
-  //   });
-  const tag = await Tag.findByPk(req.params.id, {
-    include: [ {model: Product} ]
-  });
-
-  if (!tag) {
-    res.status(404).json({message: "No Tag found with this id"});
-    return;
+ 
+  try {
+    const updateTag = await Tag.update(req.body, {
+      where: { id: req.params.id }
+    })
+    res.status(200).json(updateTag)
+  } catch {
+    res.status(500).json(err);
   }
-
-  const newProducts = req.body.productID.map()
-
-  console.log(newProducts);
-
-  res.status(200).json(tag);
 });
 
 router.delete('/:id', async (req, res) => {
