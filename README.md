@@ -30,7 +30,7 @@ Must have a .env file that contains the following:
 
 ## Live Demostration
 
-![Demostration](https://drive.google.com/file/d/1ZS1L1bY2r7JmrVT3dKV5svVHFmcHVhvh/view?usp=sharing)
+[Demostration](https://drive.google.com/file/d/1ZS1L1bY2r7JmrVT3dKV5svVHFmcHVhvh/view?usp=sharing)
 
 ## API
 
